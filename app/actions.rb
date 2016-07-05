@@ -1,17 +1,19 @@
 def humanized_time_ago (time_ago_in_minutes)
-    if time_ago_in_minutes >=60
+    if time_ago_in_minutes >= 60
         "#{time_ago_in_minutes / 60} hours ago"
     else
         "#{time_ago_in_minutes} minutes ago"
     end
 end
 
+
 get '/' do
-    post_shark = {
+   
+    @post_shark = {
         username: "sharky_j",
         avatar_url: "http://naserca.com/images/sharky_j.jpg",
         photo_url: "http://naserca.com/images/shark.jpg",
-        humanized_time_ago: humanized_time_ago (15),
+        humanized_time_ago: humanized_time_ago(15),
         like_count: 0,
         comment_count: 1,
         comments: [{ 
@@ -19,12 +21,12 @@ get '/' do
             text: "Out for the long weekend... too embarrassed to show y'all the beach bod!"
         }]
     } 
-    
-    post_whale = {
+     
+    @post_whale = {
         username: "kirk_whalum",
         avatar_url: "http://naserca.com/images/kirk_whalum.jpg",
         photo_url: "http://naserca.com/images/whale.jpg",
-        humanized_time_ago: humanized_time_ago (65),
+        humanized_time_ago: humanized_time_ago(65),
         like_count: 0,
         comment_count: 1,
         comments: [{ 
@@ -33,11 +35,11 @@ get '/' do
         }]
     }
     
-    post_marlin = {
+    @post_marlin = {
         username: "marlin_peppa",
         avatar_url: "http://naserca.com/images/marlin_peppa.jpg",
         photo_url: "http://naserca.com/images/marlin.jpg",
-        humanized_time_ago: humanized_time_ago (190),
+        humanized_time_ago: humanized_time_ago(190),
         like_count: 0,
         comment_count: 1,
         comments: [{ 
@@ -45,30 +47,7 @@ get '/' do
             text: "lunchtime! ;)"
         }]
     }
-    
+   [@post_shark, @post_whale, @post_marlin].to_s
+   @posts = [@post_shark,@post_whale,@post_marlin]
+    erb (:index)
 end
-
-get '/' do
-    # ...
-    
-    [post_shark, post_whale, post_marlin].to_s
-end
-
-    #if the time_ago_in_minutes is more than 60
-    #if time_ago_in_minutes >= 60
-            #return this string
-        #    "#{time_ago_in_minutes / 60} hours ago"
-        ##if it's an hour exactly
-        #elsif time_ago_in_minutes == 60
-         #   "an hour ago"
-        ##if it just happened
-        #elsif time_ago_in_minutes <=1
-         #   "just a moment ago"
-        #if it's less than or equal to an hour-
-        #else
-            ##return this instead
-            #"less than an hour"
-            #"#{time_ago_in_minutes} minutes ago"
-    #end
-
-
