@@ -22,4 +22,6 @@ class Post < ActiveRecord::Base
     def comment_count
         self.comments.size
     end
+    #Validations in between association definitions and methods!
+    validates_presence_of :photo_url, :user
 end
