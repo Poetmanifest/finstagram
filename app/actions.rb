@@ -79,3 +79,55 @@ get '/posts/:id' do
     @post = Post.find(params[:id])
     erb(:"posts/show")
 end
+
+post '/comments' do
+    text = params[:text]
+    post_id = params[:post_id]
+    comment = Comment.new({ text: text, post_id: post_id, user_id: current_user.id})
+    comment.save
+    redirect(back)
+end
+
+post'likes' do
+    post_id = params[:post_id]
+    like = Like.new({ post_id: post_id, user_id: current_user.id })
+    like.save
+    redirect(back)
+end
+
+delete '/likes/:id' do
+    like = Like.find(params[:id])
+    like.destroy
+    redirect(back)
+end
+
+get '/posts/new' do
+    erb(:"posts/new")
+end
+
+post '/posts/' do
+    params.to_s
+end
+
+post '/posts' do
+    photo_url = params[:photo_url]
+    #instantiate new Post
+    @post = Post.new({ photo_url: photo_url, user_id: current_user.id })
+    # if @post validates, save
+    if @posts.save
+        redirect(to('/'))
+    else
+        #if it doesn't validate, print error messages
+        erb(:"posts/new")
+    end
+end
+
+get'/posts/:id' do
+    params[:id]
+end
+
+get'/post/:id' do
+    @post = Post.friend(params[:id])    #find the post with the ID fro the URL
+    erb(:"/posts/show")                 #print to the screen for now
+end
+
